@@ -1,0 +1,102 @@
+[gd_scene load_steps=15 format=3 uid="uid://by82pu867ymij"]
+
+[ext_resource type="PackedScene" uid="uid://dw3uyrvmggba7" path="res://Enemy/enemy.tscn" id="1_4h3je"]
+[ext_resource type="Texture2D" uid="uid://b4iptiybj4nou" path="res://assets/Spaceship#02(24x24)SpriteSheet.png" id="2_bv5l2"]
+[ext_resource type="Script" path="res://Components/position_clamp_component.gd" id="3_bl2to"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uattw"]
+atlas = ExtResource("2_bv5l2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4odtr"]
+atlas = ExtResource("2_bv5l2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3jpq"]
+atlas = ExtResource("2_bv5l2")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ald08"]
+atlas = ExtResource("2_bv5l2")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7ei5"]
+atlas = ExtResource("2_bv5l2")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_547dw"]
+atlas = ExtResource("2_bv5l2")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qu6c"]
+atlas = ExtResource("2_bv5l2")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvoy2"]
+atlas = ExtResource("2_bv5l2")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_24vt7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uattw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4odtr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3jpq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ald08")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7ei5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_547dw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qu6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvoy2")
+}],
+"loop": true,
+"name": &"move",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oa1ra"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gpvyp"]
+radius = 13.0
+
+[node name="GreenEnemy" instance=ExtResource("1_4h3je")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+rotation = 3.14159
+sprite_frames = SubResource("SpriteFrames_24vt7")
+animation = &"move"
+autoplay = "move"
+frame_progress = 0.249374
+
+[node name="StatsComponent" parent="." index="1"]
+health = 3
+
+[node name="MoveComponent" parent="." index="2"]
+velocity = Vector2(0, 40)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_oa1ra")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_gpvyp")
+
+[node name="PositionClampComponent" type="Node2D" parent="." index="13" node_paths=PackedStringArray("actor")]
+script = ExtResource("3_bl2to")
+actor = NodePath("..")

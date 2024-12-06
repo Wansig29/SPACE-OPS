@@ -1,0 +1,89 @@
+[gd_scene load_steps=15 format=3 uid="uid://f2khkhnhvp6u"]
+
+[ext_resource type="Texture2D" uid="uid://c5kq41umxqmc6" path="res://Pixel/Ship-Nebula - Sprite Sheet.png" id="1_tg3g8"]
+[ext_resource type="Script" path="res://Components/onetime_animated_effect.gd" id="2_mhbge"]
+[ext_resource type="AudioStream" uid="uid://dvxv1dwrm17sh" path="res://sounds/explosion_sound.wav" id="3_0p52c"]
+[ext_resource type="Script" path="res://Components/variable_pitch_audio_stream_player.gd" id="4_bfr4b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1nsb"]
+atlas = ExtResource("1_tg3g8")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3r0r"]
+atlas = ExtResource("1_tg3g8")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1m2o"]
+atlas = ExtResource("1_tg3g8")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfhh5"]
+atlas = ExtResource("1_tg3g8")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qko78"]
+atlas = ExtResource("1_tg3g8")
+region = Rect2(128, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jg1xt"]
+atlas = ExtResource("1_tg3g8")
+region = Rect2(160, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbcnm"]
+atlas = ExtResource("1_tg3g8")
+region = Rect2(192, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4gxq"]
+atlas = ExtResource("1_tg3g8")
+region = Rect2(224, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qihv"]
+atlas = ExtResource("1_tg3g8")
+region = Rect2(256, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vmtw4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m1nsb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3r0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1m2o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfhh5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qko78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jg1xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jbcnm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a4gxq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qihv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="ExplosionEffect" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_vmtw4")
+autoplay = "default"
+frame_progress = 0.884606
+script = ExtResource("2_mhbge")
+
+[node name="VariablePitchAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_0p52c")
+bus = &"Sounds"
+script = ExtResource("4_bfr4b")
+auto_play_with_variance = true

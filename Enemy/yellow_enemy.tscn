@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://dgf65d8u2nl47"]
+
+[ext_resource type="PackedScene" uid="uid://dw3uyrvmggba7" path="res://Enemy/enemy.tscn" id="1_tl5l8"]
+[ext_resource type="Script" path="res://Enemy/yellow_enemy.gd" id="2_7ikss"]
+[ext_resource type="Texture2D" uid="uid://qr486f6efrdx" path="res://assets/Enemies/enemy-big.png" id="2_si06h"]
+[ext_resource type="Script" path="res://Components/border_bounce_component.gd" id="4_83k2p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oaept"]
+atlas = ExtResource("2_si06h")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0btyc"]
+atlas = ExtResource("2_si06h")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_soqlp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oaept")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0btyc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m15cs"]
+radius = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pm4w2"]
+radius = 8.0
+height = 32.0
+
+[node name="YellowEnemy" instance=ExtResource("1_tl5l8")]
+script = ExtResource("2_7ikss")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -8)
+scale = Vector2(1, 1.5)
+sprite_frames = SubResource("SpriteFrames_soqlp")
+autoplay = "default"
+frame_progress = 0.219218
+
+[node name="StatsComponent" parent="." index="1"]
+health = 6
+
+[node name="MoveComponent" parent="." index="2"]
+velocity = Vector2(0, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_m15cs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+shape = SubResource("CapsuleShape2D_pm4w2")
+
+[node name="ScoreComponent" parent="." index="12"]
+adjust_amount = 10
+
+[node name="BorderBounceComponent" type="Node" parent="." index="13" node_paths=PackedStringArray("actor", "move_component")]
+script = ExtResource("4_83k2p")
+actor = NodePath("..")
+move_component = NodePath("../MoveComponent")
